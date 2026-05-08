@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+
+:root {
+  --bg:        #0a0c10;
+  --surface:   #12151c;
+  --surface2:  #1a1e29;
+  --border:    rgba(255,255,255,0.07);
+  --border2:   rgba(255,255,255,0.13);
+
+  --azul:      #1a56ff;
+  --azul-dim:  rgba(26,86,255,0.15);
+  --rojo:      #ff2d4e;
+  --rojo-dim:  rgba(255,45,78,0.15);
+  --gris:      #6a7280;
+  --gris-dim:  rgba(106,114,128,0.15);
+
+  --txt:       #e8eaf0;
+  --txt-muted: #6a7280;
+  --txt-dim:   #3a4050;
+
+  --radius:    12px;
+  --radius-sm: 8px;
+  --radius-pill: 999px;
+
+  --shadow:    0 4px 24px rgba(0,0,0,0.5);
+  --shadow-lg: 0 8px 48px rgba(0,0,0,0.7);
+
+  --font-display: 'Syne', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--txt);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border2); }

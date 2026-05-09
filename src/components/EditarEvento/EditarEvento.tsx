@@ -147,9 +147,11 @@ function EditarEvento({ evento, editar, onCerrar }: Props) {
           <label className="form-label">Tipo de evento</label>
           <select className="form-select" value={tipo} onChange={e => setTipo(e.target.value)}>
             <option value="">Selecciona un tipo</option>
-            <option value="Partido">⚽ Partido</option>
-            <option value="Entrenamiento">🏃 Entrenamiento</option>
-            <option value="Social">🎉 Evento Social</option>
+            <option value="Deportes">🏅 Deportes</option>
+            <option value="Cientifico">🔬 Científico</option>
+            <option value="Social">🎉 Social</option>
+            <option value="Negocios">💼 Negocios</option>
+            <option value="Politico">🏛️ Político</option>
           </select>
         </div>
 

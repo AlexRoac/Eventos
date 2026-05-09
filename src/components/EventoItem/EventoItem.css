@@ -16,32 +16,25 @@
   box-shadow: var(--shadow);
 }
 
-/* Barra lateral de color */
-.evento-acento {
-  width: 3px;
-  flex-shrink: 0;
-}
+/* Barra lateral de color por tipo */
+.evento-acento { width: 3px; flex-shrink: 0; }
 
-.evento-acento-partido      { background: var(--azul); }
-.evento-acento-social       { background: var(--rojo); }
-.evento-acento-entrenamiento { background: #22c55e; }
+.evento-acento-deportes   { background: #1a56ff; }
+.evento-acento-social     { background: #ff2d4e; }
+.evento-acento-cientifico { background: #22c55e; }
+.evento-acento-negocios   { background: #f59e0b; }
+.evento-acento-politico   { background: #a855f7; }
 
-/* Imagen del evento */
+/* Imagen */
 .evento-imagen-wrap {
   width: 72px;
   flex-shrink: 0;
   overflow: hidden;
   background: var(--img-placeholder);
 }
+.evento-imagen { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-.evento-imagen {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-/* Contenido principal */
+/* Contenido */
 .evento-contenido {
   flex: 1;
   padding: 14px 18px;
@@ -70,27 +63,25 @@
   white-space: nowrap;
 }
 
+/* Badges por tipo */
 .badge {
   flex-shrink: 0;
   font-size: 10px;
   font-weight: 700;
   padding: 3px 10px;
   border-radius: var(--radius-pill);
-  letter-spacing: 0.07em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
-.badge-partido       { background: var(--azul-dim); color: var(--azul); border: 1px solid rgba(26,86,255,0.25); }
-.badge-social        { background: var(--rojo-dim); color: var(--rojo); border: 1px solid rgba(255,45,78,0.25); }
-.badge-entrenamiento { background: rgba(34,197,94,0.12); color: #22c55e; border: 1px solid rgba(34,197,94,0.25); }
+.badge-deportes   { background: rgba(26,86,255,0.12);  color: #1a56ff; border: 1px solid rgba(26,86,255,0.25); }
+.badge-social     { background: rgba(255,45,78,0.12);  color: #ff2d4e; border: 1px solid rgba(255,45,78,0.25); }
+.badge-cientifico { background: rgba(34,197,94,0.12);  color: #22c55e; border: 1px solid rgba(34,197,94,0.25); }
+.badge-negocios   { background: rgba(245,158,11,0.12); color: #f59e0b; border: 1px solid rgba(245,158,11,0.25); }
+.badge-politico   { background: rgba(168,85,247,0.12); color: #a855f7; border: 1px solid rgba(168,85,247,0.25); }
 
-/* Meta info */
-.evento-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
-  align-items: center;
-}
+/* Meta */
+.evento-meta { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
 
 .meta-item {
   display: flex;
@@ -100,21 +91,10 @@
   color: var(--txt-muted);
   font-weight: 300;
 }
-
-.meta-item svg {
-  width: 12px;
-  height: 12px;
-  opacity: 0.6;
-}
+.meta-item svg { width: 12px; height: 12px; opacity: 0.6; }
 
 /* Precio */
-.precio-tag {
-  font-size: 12px;
-  font-weight: 600;
-  padding: 3px 10px;
-  border-radius: var(--radius-pill);
-}
-
+.precio-tag { font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: var(--radius-pill); }
 .precio-normal   { background: var(--surface2); color: var(--txt); border: 1px solid var(--border2); }
 .precio-gratuito { background: rgba(34,197,94,0.12); color: #22c55e; border: 1px solid rgba(34,197,94,0.25); }
 
@@ -142,12 +122,7 @@
   transition: all 0.18s;
   white-space: nowrap;
 }
-
-.btn-editar:hover {
-  background: var(--surface2);
-  color: var(--txt);
-  border-color: var(--border2);
-}
+.btn-editar:hover { background: var(--surface2); color: var(--txt); }
 
 .btn-eliminar {
   padding: 7px 14px;
@@ -162,39 +137,14 @@
   transition: all 0.18s;
   white-space: nowrap;
 }
+.btn-eliminar:hover { background: var(--rojo-dim); color: var(--rojo); border-color: rgba(255,45,78,0.2); }
 
-.btn-eliminar:hover {
-  background: var(--rojo-dim);
-  color: var(--rojo);
-  border-color: rgba(255,45,78,0.2);
-}
-
-/* ── Responsive ── */
+/* Responsive */
 @media (max-width: 480px) {
-  .evento-imagen-wrap {
-    width: 56px;
-  }
-
-  .evento-contenido {
-    padding: 10px 12px;
-  }
-
-  .evento-nombre {
-    font-size: 13px;
-  }
-
-  .evento-acciones {
-    padding: 8px 8px;
-    gap: 4px;
-  }
-
-  .btn-editar,
-  .btn-eliminar {
-    padding: 5px 10px;
-    font-size: 11px;
-  }
-
-  .evento-meta {
-    gap: 8px;
-  }
+  .evento-imagen-wrap { width: 56px; }
+  .evento-contenido { padding: 10px 12px; }
+  .evento-nombre { font-size: 13px; }
+  .evento-acciones { padding: 8px 8px; gap: 4px; }
+  .btn-editar, .btn-eliminar { padding: 5px 10px; font-size: 11px; }
+  .evento-meta { gap: 8px; }
 }

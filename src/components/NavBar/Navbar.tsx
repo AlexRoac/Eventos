@@ -7,10 +7,12 @@ interface Props {
 }
 
 const FILTROS = [
-  { valor: "Todos", label: "Todos" },
-  { valor: "Partido", label: "⚽ Partido" },
-  { valor: "Entrenamiento", label: "🏃 Entrenamiento" },
-  { valor: "Social", label: "🎉 Social" },
+  { valor: "Todos",      label: "Todos" },
+  { valor: "Deportes",   label: "🏅 Deportes" },
+  { valor: "Social",     label: "🎉 Social" },
+  { valor: "Cientifico", label: "🔬 Científico" },
+  { valor: "Negocios",   label: "💼 Negocios" },
+  { valor: "Politico",   label: "🏛️ Político" },
 ]
 
 function NavBar({ onAgregar, filtro, onFiltro }: Props) {

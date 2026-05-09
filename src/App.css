@@ -72,3 +72,9 @@
     margin: 28px 0 12px;
   }
 }
+
+.seccion-count.hoy {
+  background: rgba(245,158,11,0.15);
+  color: #f59e0b;
+  border-color: rgba(245,158,11,0.3);
+}

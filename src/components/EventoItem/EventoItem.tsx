@@ -25,6 +25,14 @@ const IconCal = () => (
   </svg>
 )
 
+const TIPO_EMOJI: Record<string, string> = {
+  deportes:   "🏅",
+  social:     "🎉",
+  cientifico: "🔬",
+  negocios:   "💼",
+  politico:   "🏛️",
+}
+
 function formatFecha(fecha: string) {
   const [year, month, day] = fecha.split("-")
   const meses = ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"]
@@ -32,7 +40,8 @@ function formatFecha(fecha: string) {
 }
 
 function EventoItem({ nombre, lugar, fecha, precio, tipo, imagen_url, onEliminar, onEditar }: Props) {
-  const tipoKey = tipo?.toLowerCase() ?? ""
+  const tipoKey = tipo?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "") ?? ""
+  const emoji = TIPO_EMOJI[tipoKey] ?? "📅"
 
   const handleEliminar = () => {
     Swal.fire({
@@ -66,7 +75,6 @@ function EventoItem({ nombre, lugar, fecha, precio, tipo, imagen_url, onEliminar
     <div className="evento-card">
       <div className={`evento-acento evento-acento-${tipoKey}`} />
 
-      {/* Imagen del evento */}
       {imagen_url && (
         <div className="evento-imagen-wrap">
           <img src={imagen_url} alt={nombre} className="evento-imagen" />
@@ -76,7 +84,7 @@ function EventoItem({ nombre, lugar, fecha, precio, tipo, imagen_url, onEliminar
       <div className="evento-contenido">
         <div className="evento-top">
           <span className="evento-nombre">{nombre}</span>
-          <span className={`badge badge-${tipoKey}`}>{tipo}</span>
+          <span className={`badge badge-${tipoKey}`}>{emoji} {tipo}</span>
         </div>
         <div className="evento-meta">
           <span className="meta-item"><IconPin />{lugar}</span>

@@ -99,12 +99,12 @@ function AgregarEvento({ insertar, onCerrar }: Props) {
 
         <div className="form-group">
           <label className="form-label">Nombre del evento</label>
-          <input className="form-input" type="text" placeholder="Ej. Partido vs América" value={nombre} onChange={e => setNombre(e.target.value)} autoFocus />
+          <input className="form-input" type="text" placeholder="Ej. Otakufest" value={nombre} onChange={e => setNombre(e.target.value)} autoFocus />
         </div>
 
         <div className="form-group">
           <label className="form-label">Lugar / Sede</label>
-          <input className="form-input" type="text" placeholder="Ej. Estadio Azteca" value={lugar} onChange={e => setLugar(e.target.value)} />
+          <input className="form-input" type="text" placeholder="Ej. Centro de Convenciones" value={lugar} onChange={e => setLugar(e.target.value)} />
         </div>
 
         <div className="form-row">
@@ -122,9 +122,11 @@ function AgregarEvento({ insertar, onCerrar }: Props) {
           <label className="form-label">Tipo de evento</label>
           <select className="form-select" value={tipo} onChange={e => setTipo(e.target.value)}>
             <option value="">Selecciona un tipo</option>
-            <option value="Partido">⚽ Partido</option>
-            <option value="Entrenamiento">🏃 Entrenamiento</option>
-            <option value="Social">🎉 Evento Social</option>
+            <option value="Deportes">🏅 Deportes</option>
+            <option value="Cientifico">🔬 Científico</option>
+            <option value="Social">🎉 Social</option>
+            <option value="Negocios">💼 Negocios</option>
+            <option value="Politico">🏛️ Político</option>
           </select>
         </div>
 

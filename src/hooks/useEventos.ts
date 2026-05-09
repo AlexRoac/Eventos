@@ -1,6 +1,36 @@
 import { useEffect, useState } from "react"
 import { supabase } from "../utils/supabase"
 
+// Convierte un File a base64 data URL (funciona en Vercel y cualquier hosting)
+export const imagenABase64 = (file: File): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    // Redimensionar antes de convertir para no sobrepasar límites de Supabase
+    const img = new Image()
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      img.src = e.target?.result as string
+    }
+    img.onload = () => {
+      const MAX = 800 // máximo 800px de ancho/alto
+      let w = img.width
+      let h = img.height
+      if (w > MAX || h > MAX) {
+        if (w > h) { h = Math.round((h * MAX) / w); w = MAX }
+        else { w = Math.round((w * MAX) / h); h = MAX }
+      }
+      const canvas = document.createElement("canvas")
+      canvas.width = w
+      canvas.height = h
+      const ctx = canvas.getContext("2d")!
+      ctx.drawImage(img, 0, 0, w, h)
+      resolve(canvas.toDataURL("image/jpeg", 0.82))
+    }
+    img.onerror = reject
+    reader.onerror = reject
+    reader.readAsDataURL(file)
+  })
+}
+
 function useEventos() {
   const [eventos, setEventos] = useState<any[]>([])
 
@@ -59,28 +89,9 @@ function useEventos() {
     }
   }
 
-  const subirImagen = async (file: File, eventoId: number | string): Promise<string | null> => {
-    try {
-      const ext = file.name.split(".").pop()
-      const path = `eventos/${eventoId}-${Date.now()}.${ext}`
-      const { error } = await supabase.storage
-        .from("eventos-imagenes")
-        .upload(path, file, { upsert: true })
-      if (error) {
-        console.error("Error subiendo imagen:", error)
-        return null
-      }
-      const { data } = supabase.storage.from("eventos-imagenes").getPublicUrl(path)
-      return data.publicUrl
-    } catch (err) {
-      console.error(err)
-      return null
-    }
-  }
-
   useEffect(() => { traer() }, [])
 
-  return { eventos, insertar, eliminar, editar, subirImagen }
+  return { eventos, insertar, eliminar, editar }
 }
 
 export default useEventos

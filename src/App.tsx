@@ -5,7 +5,7 @@ import { EventoItem, AgregarEvento, EditarEvento, Header, NavBar } from "./compo
 import "./App.css"
 
 function App() {
-  const { eventos, insertar, eliminar, editar, subirImagen } = useEventos()
+  const { eventos, insertar, eliminar, editar } = useEventos()
   const { filtro, setFiltro, eventosFuturos, eventosPasados } = useFiltro(eventos)
   const [eventoEditando, setEventoEditando] = useState<any>(null)
   const [mostrarAgregar, setMostrarAgregar] = useState(false)
@@ -34,7 +34,6 @@ function App() {
       />
 
       <main className="main-content">
-        {/* ── Próximos eventos ── */}
         <div className="seccion-header">
           <span className="seccion-titulo">Próximos eventos</span>
           <span className="seccion-count">{eventosFuturos.length}</span>
@@ -53,7 +52,6 @@ function App() {
           ))
         }
 
-        {/* ── Eventos pasados ── */}
         <div className="seccion-header">
           <span className="seccion-titulo">Eventos pasados</span>
           <span className="seccion-count pasado">{eventosPasados.length}</span>
@@ -76,7 +74,6 @@ function App() {
       {mostrarAgregar && (
         <AgregarEvento
           insertar={insertar}
-          subirImagen={subirImagen}
           onCerrar={() => setMostrarAgregar(false)}
         />
       )}
@@ -85,7 +82,6 @@ function App() {
         <EditarEvento
           evento={eventoEditando}
           editar={editar}
-          subirImagen={subirImagen}
           onCerrar={() => setEventoEditando(null)}
         />
       )}

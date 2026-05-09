@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
 
+/* ── Dark theme (default) ── */
 :root {
   --bg:        #0a0c10;
   --surface:   #12151c;
@@ -27,6 +28,37 @@
 
   --font-display: 'Syne', sans-serif;
   --font-body:    'DM Sans', sans-serif;
+
+  --img-placeholder: #1a1e29;
+  --toggle-bg: #1a1e29;
+  --toggle-border: rgba(255,255,255,0.13);
+}
+
+/* ── Light theme ── */
+[data-theme="light"] {
+  --bg:        #f0f2f7;
+  --surface:   #ffffff;
+  --surface2:  #e8eaf0;
+  --border:    rgba(0,0,0,0.08);
+  --border2:   rgba(0,0,0,0.15);
+
+  --azul:      #1a56ff;
+  --azul-dim:  rgba(26,86,255,0.1);
+  --rojo:      #e8213e;
+  --rojo-dim:  rgba(232,33,62,0.1);
+  --gris:      #6a7280;
+  --gris-dim:  rgba(106,114,128,0.1);
+
+  --txt:       #0d1117;
+  --txt-muted: #6a7280;
+  --txt-dim:   #b0b8c8;
+
+  --shadow:    0 4px 24px rgba(0,0,0,0.1);
+  --shadow-lg: 0 8px 48px rgba(0,0,0,0.18);
+
+  --img-placeholder: #e8eaf0;
+  --toggle-bg: #e8eaf0;
+  --toggle-border: rgba(0,0,0,0.12);
 }
 
 *, *::before, *::after {
@@ -43,6 +75,7 @@ body {
   color: var(--txt);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+  transition: background 0.25s ease, color 0.25s ease;
 }
 
 ::-webkit-scrollbar { width: 6px; }

@@ -1,12 +1,13 @@
 .navbar {
   background: var(--surface);
   border-bottom: 1px solid var(--border);
-  padding: 0 28px;
+  padding: 0 24px;
   height: 52px;
   display: flex;
   align-items: center;
   gap: 4px;
   overflow-x: auto;
+  transition: background 0.25s ease, border-color 0.25s ease;
 }
 
 .navbar::-webkit-scrollbar { display: none; }
@@ -19,7 +20,7 @@
 }
 
 .navbar-btn {
-  padding: 6px 16px;
+  padding: 6px 14px;
   font-size: 13px;
   font-weight: 500;
   font-family: var(--font-body);
@@ -60,6 +61,7 @@
   cursor: pointer;
   transition: all 0.18s ease;
   letter-spacing: 0.01em;
+  white-space: nowrap;
 }
 
 .navbar-btn-nuevo:hover {
@@ -71,4 +73,21 @@
 .navbar-btn-nuevo svg {
   width: 14px;
   height: 14px;
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0 12px;
+    height: 48px;
+  }
+
+  .navbar-btn {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+
+  .navbar-btn-nuevo {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
 }

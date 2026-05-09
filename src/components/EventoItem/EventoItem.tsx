@@ -8,6 +8,7 @@ interface Props {
   fecha: string
   precio: number
   tipo: string
+  imagen_url?: string | null
   onEliminar: () => void
   onEditar: () => void
 }
@@ -30,7 +31,7 @@ function formatFecha(fecha: string) {
   return `${day} ${meses[parseInt(month) - 1]} ${year}`
 }
 
-function EventoItem({ nombre, lugar, fecha, precio, tipo, onEliminar, onEditar }: Props) {
+function EventoItem({ nombre, lugar, fecha, precio, tipo, imagen_url, onEliminar, onEditar }: Props) {
   const tipoKey = tipo?.toLowerCase() ?? ""
 
   const handleEliminar = () => {
@@ -64,6 +65,13 @@ function EventoItem({ nombre, lugar, fecha, precio, tipo, onEliminar, onEditar }
   return (
     <div className="evento-card">
       <div className={`evento-acento evento-acento-${tipoKey}`} />
+
+      {/* Imagen del evento */}
+      {imagen_url && (
+        <div className="evento-imagen-wrap">
+          <img src={imagen_url} alt={nombre} className="evento-imagen" />
+        </div>
+      )}
 
       <div className="evento-contenido">
         <div className="evento-top">

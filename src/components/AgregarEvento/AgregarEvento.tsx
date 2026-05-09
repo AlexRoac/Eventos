@@ -1,20 +1,41 @@
-import { useState } from "react"
+import { useState, useRef } from "react"
 import "../modal.css"
 
 interface Props {
-  insertar: (nombre: string, lugar: string, fecha: string, precio: number, tipo: string) => void
+  insertar: (nombre: string, lugar: string, fecha: string, precio: number, tipo: string, imagen_url?: string) => void
+  subirImagen: (file: File, id: number | string) => Promise<string | null>
   onCerrar: () => void
 }
 
-function AgregarEvento({ insertar, onCerrar }: Props) {
+function AgregarEvento({ insertar, subirImagen, onCerrar }: Props) {
   const [nombre, setNombre]   = useState("")
   const [lugar, setLugar]     = useState("")
   const [fecha, setFecha]     = useState("")
   const [precio, setPrecio]   = useState("")
   const [tipo, setTipo]       = useState("")
   const [error, setError]     = useState("")
+  const [imagen, setImagen]   = useState<File | null>(null)
+  const [preview, setPreview] = useState<string | null>(null)
+  const [subiendo, setSubiendo] = useState(false)
+  const fileRef = useRef<HTMLInputElement>(null)
 
-  const manejarSubmit = () => {
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setImagen(file)
+    const url = URL.createObjectURL(file)
+    setPreview(url)
+  }
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault()
+    const file = e.dataTransfer.files?.[0]
+    if (!file || !file.type.startsWith("image/")) return
+    setImagen(file)
+    setPreview(URL.createObjectURL(file))
+  }
+
+  const manejarSubmit = async () => {
     if (!nombre.trim() || !lugar.trim() || !fecha || !tipo) {
       setError("Todos los campos son obligatorios.")
       return
@@ -23,7 +44,16 @@ function AgregarEvento({ insertar, onCerrar }: Props) {
       setError("El precio no puede ser negativo.")
       return
     }
-    insertar(nombre.trim(), lugar.trim(), fecha, Number(precio || 0), tipo)
+
+    setSubiendo(true)
+    let imagen_url: string | undefined
+    if (imagen) {
+      const tempId = `nuevo-${Date.now()}`
+      const url = await subirImagen(imagen, tempId)
+      if (url) imagen_url = url
+    }
+    insertar(nombre.trim(), lugar.trim(), fecha, Number(precio || 0), tipo, imagen_url)
+    setSubiendo(false)
     onCerrar()
   }
 
@@ -36,6 +66,42 @@ function AgregarEvento({ insertar, onCerrar }: Props) {
         </div>
 
         {error && <p className="modal-error">{error}</p>}
+
+        {/* ── Imagen ── */}
+        <div className="form-group">
+          <label className="form-label">Imagen del evento (opcional)</label>
+          <div
+            className={`img-drop-zone ${preview ? "img-drop-zone--has-img" : ""}`}
+            onClick={() => fileRef.current?.click()}
+            onDrop={handleDrop}
+            onDragOver={e => e.preventDefault()}
+          >
+            {preview ? (
+              <>
+                <img src={preview} alt="preview" className="img-preview" />
+                <div className="img-drop-overlay">
+                  <span>Cambiar imagen</span>
+                </div>
+              </>
+            ) : (
+              <div className="img-drop-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/>
+                  <circle cx="8.5" cy="8.5" r="1.5"/>
+                  <polyline points="21 15 16 10 5 21"/>
+                </svg>
+                <span>Arrastra una imagen o haz clic para seleccionar</span>
+              </div>
+            )}
+          </div>
+          <input
+            ref={fileRef}
+            type="file"
+            accept="image/*"
+            style={{ display: "none" }}
+            onChange={handleImageChange}
+          />
+        </div>
 
         <div className="form-group">
           <label className="form-label">Nombre del evento</label>
@@ -99,7 +165,9 @@ function AgregarEvento({ insertar, onCerrar }: Props) {
 
         <div className="modal-acciones">
           <button className="btn-modal-cancelar" onClick={onCerrar}>Cancelar</button>
-          <button className="btn-modal-confirm" onClick={manejarSubmit}>Agregar evento</button>
+          <button className="btn-modal-confirm" onClick={manejarSubmit} disabled={subiendo}>
+            {subiendo ? "Guardando..." : "Agregar evento"}
+          </button>
         </div>
       </div>
     </div>

@@ -6,7 +6,7 @@
   border-radius: var(--radius);
   overflow: hidden;
   margin-bottom: 8px;
-  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease, background 0.25s ease;
   position: relative;
 }
 
@@ -25,6 +25,21 @@
 .evento-acento-partido      { background: var(--azul); }
 .evento-acento-social       { background: var(--rojo); }
 .evento-acento-entrenamiento { background: #22c55e; }
+
+/* Imagen del evento */
+.evento-imagen-wrap {
+  width: 72px;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: var(--img-placeholder);
+}
+
+.evento-imagen {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 
 /* Contenido principal */
 .evento-contenido {
@@ -106,9 +121,11 @@
 /* Acciones */
 .evento-acciones {
   display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 6px;
-  padding: 0 14px;
+  padding: 10px 12px;
   flex-shrink: 0;
 }
 
@@ -123,6 +140,7 @@
   color: var(--txt-muted);
   cursor: pointer;
   transition: all 0.18s;
+  white-space: nowrap;
 }
 
 .btn-editar:hover {
@@ -142,10 +160,41 @@
   color: var(--txt-dim);
   cursor: pointer;
   transition: all 0.18s;
+  white-space: nowrap;
 }
 
 .btn-eliminar:hover {
   background: var(--rojo-dim);
   color: var(--rojo);
   border-color: rgba(255,45,78,0.2);
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .evento-imagen-wrap {
+    width: 56px;
+  }
+
+  .evento-contenido {
+    padding: 10px 12px;
+  }
+
+  .evento-nombre {
+    font-size: 13px;
+  }
+
+  .evento-acciones {
+    padding: 8px 8px;
+    gap: 4px;
+  }
+
+  .btn-editar,
+  .btn-eliminar {
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+
+  .evento-meta {
+    gap: 8px;
+  }
 }

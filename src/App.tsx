@@ -1,18 +1,32 @@
+import { useState, useEffect } from "react"
 import useEventos from "./hooks/useEventos"
 import useFiltro from "./hooks/useFiltro"
 import { EventoItem, AgregarEvento, EditarEvento, Header, NavBar } from "./components"
-import { useState } from "react"
 import "./App.css"
 
 function App() {
-  const { eventos, insertar, eliminar, editar } = useEventos()
+  const { eventos, insertar, eliminar, editar, subirImagen } = useEventos()
   const { filtro, setFiltro, eventosFuturos, eventosPasados } = useFiltro(eventos)
   const [eventoEditando, setEventoEditando] = useState<any>(null)
   const [mostrarAgregar, setMostrarAgregar] = useState(false)
+  const [tema, setTema] = useState<"dark" | "light">(() => {
+    return (localStorage.getItem("tema") as "dark" | "light") || "dark"
+  })
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", tema === "light" ? "light" : "")
+    localStorage.setItem("tema", tema)
+  }, [tema])
+
+  const toggleTema = () => setTema(t => t === "dark" ? "light" : "dark")
 
   return (
     <div className="app-layout">
-      <Header proximosCount={eventosFuturos.length} />
+      <Header
+        proximosCount={eventosFuturos.length}
+        tema={tema}
+        onToggleTema={toggleTema}
+      />
       <NavBar
         onAgregar={() => setMostrarAgregar(true)}
         filtro={filtro}
@@ -62,6 +76,7 @@ function App() {
       {mostrarAgregar && (
         <AgregarEvento
           insertar={insertar}
+          subirImagen={subirImagen}
           onCerrar={() => setMostrarAgregar(false)}
         />
       )}
@@ -70,6 +85,7 @@ function App() {
         <EditarEvento
           evento={eventoEditando}
           editar={editar}
+          subirImagen={subirImagen}
           onCerrar={() => setEventoEditando(null)}
         />
       )}

@@ -61,3 +61,14 @@
   font-size: 14px;
   font-style: italic;
 }
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .main-content {
+    padding: 20px 12px 48px;
+  }
+
+  .seccion-header {
+    margin: 28px 0 12px;
+  }
+}
